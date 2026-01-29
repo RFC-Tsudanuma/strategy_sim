@@ -1,6 +1,8 @@
 # strategy_sim
 A 2D simulator for strategy development.
 
+![strategy_sim](https://github.com/user-attachments/assets/824d8a9f-2248-40fc-acb2-3950887a02f1)
+
 ## Requirements
 - Ubuntu 22.04
 - ROS 2 Humble
