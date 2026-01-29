@@ -1,0 +1,18 @@
+[project]
+name = "skrl-train"
+version = "0.0.0"
+description = "Reinforcement Learning Training for Strategy Simulation by skrl"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "rl-training",
+    "gymnasium",
+    "skrl[torch]",
+    "pyyaml",
+    "hydra-core",
+    "matplotlib>=3.10.7",
+]
+
+[tool.uv.sources]
+# 以下のpathは他のスクリプトで自動変更するため、手動で編集しないこと。
+rl-training = { path = "/abs_path/to/rl-training", editable = true }

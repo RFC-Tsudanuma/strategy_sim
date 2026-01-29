@@ -1,0 +1,8 @@
+configclass>=0.2.0
+coverage>=7.10.7
+numba>=0.62.1
+numpy<2.0,>=1.21.0
+pygame>=2.6.1
+pyqt6>=6.9.1
+ruff>=0.12.7
+scipy>=1.7.0

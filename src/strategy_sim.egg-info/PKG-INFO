@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: strategy-sim
+Version: 0.0.0
+Summary: Add your description here
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: configclass>=0.2.0
+Requires-Dist: coverage>=7.10.7
+Requires-Dist: numba>=0.62.1
+Requires-Dist: numpy<2.0,>=1.21.0
+Requires-Dist: pygame>=2.6.1
+Requires-Dist: pyqt6>=6.9.1
+Requires-Dist: ruff>=0.12.7
+Requires-Dist: scipy>=1.7.0
+Dynamic: license-file
+
+# strategy_sim
+戦略の2Dシミュレーション。
+
+## 動作環境
+- ubuntu 22.04
+- ros2 humble
+- uv 
+
+## 初めて起動する際に行うこと
+1. https://github.com/RFC-Tsudanuma/futbol_main をクローン
+2. `futbol_main/src/ros2_ws/src` 以下に、https://github.com/RFC-Tsudanuma/robocup_demo.git をクローン
+3. [uv](https://docs.astral.sh/uv/) がインストールされていない場合は、インストールする。[インストール方法](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1)
+4. `cd futbol_main/src/ros2_ws` する
+5. `./build_pkg_select.sh strategy_sim` を実行する
+6. `cd src/strategy_sim/` する
+7. `make venv` を実行する
+8. `futbol_main/src/ros2_ws` に戻る
+9. `./run_strategy_sim.sh` を実行する。これで戦略のシミュレーションが起動する。これ以降はこの`run_strategy_sim.sh`を実行すればシミュレーションを起動できる。 
+
+## シミュレーションの使い方
+以下の画像は、シミュレーションを起動した様子。中央付近にある黄色い円がボール。画面左右端にある赤いエリアがゴール。青い四角がロボットを表す。ロボットは、番号に応じて四角の中に数字が表示されている。
+![alt text](./docs/image.png)
+
+- ボールとロボットはマウスでドラッグすると動かすことができる
+- キーボードの"r"を押すと、ボールを初期位置に戻せる。
+- キーボードの"g"を押すとロボットを初期位置に戻せる。
+- ロボットを手動で操作するGUIがある。
+  - `ros2 launch strategy_sim launch_robot_vel_control_ui.py`で起動可能
+  - 利用方法はUIを見て察して下さい。
+  - ![alt text](./docs/image-1.png)
+
+ボールがゴールに入った際には、自分でゲームコントローラーを操作して戦略側に点が入ったと通知する必要がある。
+
+### ロボットへの指令の出し方
+ロボットは、`/LocoAPiTopicReq_ロボット番号`というトピックをサブスクライブしている。（ros2 topic list で確認可能。）ここに対してメッセージを送信すればロボットに指令を出す事ができる。
+メッセージの送信方法は、robot_vel_control_ui.pyを参考にするか自分で書くか、strategyのapiを利用するかのどちらか。基本的に、ボールはロボットが衝突する事で動かしていく。
+
+# トラブルシューティング
+pullをしたら戦略（シミュレーター）が動かなくなった場合は、以下を試して下さい。
+以下を試してもまだ動かない場合、報告してください。
+
+- strategyディレクトリに移動して `uv sync`を実行する
+- strategy_simディレクトリに移動して `uv sync`を実行する。
+- `./build_pkg_select.sh strategy`を実行した後、`source install/setup.bash`を実行する。
+- `./build_pkg_select.sh strategy_sim`を実行した後、`source install/setup.bash`を実行する。
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.
+This repository used this https://github.com/Geson-anko/ros2_uv_template template.
